@@ -33,11 +33,13 @@ provider:
     ENVIRONMENT_NAME: ${self:custom.ENVIRONMENT_NAME.${self:provider.stage}}
 
 # you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#         - "ssm:GetParameter"
-#      Resource : 
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+         - "ssm:GetParameter"
+         - "ssm:GetParameters"
+         - "ssm:GetParametersByPath"
+      Resource: 'arn:aws:ssm:::${self:custom.ENVIRONMENT_NAME.${self:provider.stage}}/lambda-cloudwatch-triggered/'
 #        Fn::Join:
 #          - ''
 #          - - 'arn:aws:ssm::'
