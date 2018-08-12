@@ -1,0 +1,30 @@
+{
+  "name": "cdk-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/index.js",
+  "types": "bin/index.d.ts",
+  "bin": {
+    "cdk-example": "bin/cdk-example.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-cdk/aws-events": "^0.8.1",
+    "@aws-cdk/aws-s3": "^0.8.1",
+    "@aws-cdk/aws-sns": "^0.8.1",
+    "@aws-cdk/aws-sqs": "^0.8.1",
+    "@aws-cdk/aws-ssm": "^0.8.1",
+    "@aws-cdk/cdk": "^0.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^10.5.8",
+    "aws-cdk": "^0.8.1",
+    "typescript": "^3.0.1"
+  }
+}
