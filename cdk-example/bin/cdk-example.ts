@@ -34,17 +34,8 @@ class CdkHelloStack extends cdk.Stack {
             sourceArn: cloudwatchTrigger.ruleArn
         });
 
-        // // the role also has a policy attached to it.
-        // role.addToPolicy(new cdk.PolicyStatement()
-        // .addResource(bucket.arnForObjects('*'))
-        // .addResource(bucket.bucketArn)
-        // .addActions('s3:*'));
 
-        //                 Allow: ssm:GetParameter
-        // Allow: ssm:GetParameters
-        // Allow: ssm:GetParametersByPath
-
-
+        //Need to lock this down to more than just *
         lambdaFunction.addToRolePolicy(new cdk.PolicyStatement()
             .addResource('*')
             .addActions('ssm:GetParameter','ssm:GetParameters','ssm:GetParametersByPath')
