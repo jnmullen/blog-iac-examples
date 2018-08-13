@@ -23,21 +23,20 @@ class CdkHelloStack extends cdk.Stack {
             functionName: 'my-cdk-lambda-function'
         });
 
-        const cloudwatchTrigger = new events.EventRule(this, 'cronEvent', {
-            scheduleExpression: "cron(0 0 * * ? *)"
+        const rule = new events.EventRule(this, 'Rule', {
+            scheduleExpression: 'cron(0 0 * * ? *)',
         });
-
-        cloudwatchTrigger.addTarget(lambdaFunction);
-
+        rule.addTarget(lambdaFunction);
+    
+        //this is only temporary and should not be required - see issue on github
+        //https://github.com/awslabs/aws-cdk/issues/555
         lambdaFunction.addPermission('allowCloudWatchInvocation', {
             principal: new ServicePrincipal('events.amazonaws.com'),
-            sourceArn: cloudwatchTrigger.ruleArn
+            sourceArn: rule.ruleArn
         });
 
-
-        //Need to lock this down to more than just *
         lambdaFunction.addToRolePolicy(new cdk.PolicyStatement()
-            .addResource('*')
+            .addResource('arn:aws:ssm:::development/lambda-cloudwatch-triggered/')
             .addActions('ssm:GetParameter','ssm:GetParameters','ssm:GetParametersByPath')
         );
     }
