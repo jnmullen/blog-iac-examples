@@ -28,13 +28,6 @@ class CdkHelloStack extends cdk.Stack {
         });
         rule.addTarget(lambdaFunction);
     
-        //this is only temporary and should not be required - see issue on github
-        //https://github.com/awslabs/aws-cdk/issues/555
-        lambdaFunction.addPermission('allowCloudWatchInvocation', {
-            principal: new ServicePrincipal('events.amazonaws.com'),
-            sourceArn: rule.ruleArn
-        });
-
         lambdaFunction.addToRolePolicy(new cdk.PolicyStatement()
             .addResource('arn:aws:ssm:::development/lambda-cloudwatch-triggered/')
             .addActions('ssm:GetParameter','ssm:GetParameters','ssm:GetParametersByPath')
