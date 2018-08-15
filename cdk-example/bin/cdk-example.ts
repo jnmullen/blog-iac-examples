@@ -16,9 +16,9 @@ class CdkHelloStack extends cdk.Stack {
         });
 
         //lambda function
-        const lambdaFunction = new lambda.Lambda(this, 'lambdaFunction', {
-            code: new lambda.LambdaS3Code(bucket, 'lambda-cloudwatch-triggered.zip'),
-            runtime: lambda.LambdaRuntime.NodeJS810,
+        const lambdaFunction = new lambda.Function(this, 'lambdaFunction', {
+            code: new lambda.S3Code(bucket, 'lambda-cloudwatch-triggered.zip'),
+            runtime: lambda.Runtime.NodeJS810,
             handler: 'index.handler',
             functionName: 'my-cdk-lambda-function'
         });
