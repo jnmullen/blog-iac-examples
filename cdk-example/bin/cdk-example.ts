@@ -1,42 +1,41 @@
 #!/usr/bin/env node
-import events = require('@aws-cdk/aws-events')
-import lambda = require('@aws-cdk/aws-lambda');
 import s3 = require('@aws-cdk/aws-s3');
-import cdk = require('@aws-cdk/cdk');
+import events = require('@aws-cdk/aws-events');
+import targets = require('@aws-cdk/aws-events-targets');
+import lambda = require('@aws-cdk/aws-lambda');
+import { PolicyStatement } from "@aws-cdk/aws-iam"
+import cdk = require('@aws-cdk/core');
 
-import { ServicePrincipal } from '../node_modules/@aws-cdk/cdk';
+
+//import { ServicePrincipal } from '../node_modules/@aws-cdk/cdk';
 
 class CdkHelloStack extends cdk.Stack {
-    constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
-        super(parent, name, props);
+    constructor(parent: cdk.App, id: string) {
+        super(parent, id);
 
-        //code comes from a well defined bucket based on dev/prod account + service name
-        const bucket = s3.BucketRef.import(this, 'CodeBucket', {
-            bucketName: new s3.BucketName('jamesnmullen')
-        });
+        const bucket = s3.Bucket.fromBucketName(this, 'BucketByName', 'jamesnmullen');
+
+        const lambdaPolicy = new PolicyStatement()
+        lambdaPolicy.addActions("ssm:GetParameter", "ssm:GetParameters", "ssm:GetParametersByPath")
+        lambdaPolicy.addResources('arn:aws:ssm:::development/lambda-cloudwatch-triggered/');
 
         //lambda function
         const lambdaFunction = new lambda.Function(this, 'lambdaFunction', {
             code: new lambda.S3Code(bucket, 'lambda-cloudwatch-triggered.zip'),
-            runtime: lambda.Runtime.NodeJS810,
+            runtime: lambda.Runtime.NODEJS_12_X,
             handler: 'index.handler',
-            functionName: 'my-cdk-lambda-function'
+            functionName: 'my-cdk-lambda-function',
+            initialPolicy: [lambdaPolicy]
         });
 
-        const rule = new events.EventRule(this, 'Rule', {
-            scheduleExpression: 'cron(0 0 * * ? *)',
+        const rule = new events.Rule(this, 'Rule', {
+            schedule: events.Schedule.expression('cron(0 0 * * ? *)'),
         });
-        rule.addTarget(lambdaFunction);
-    
-        lambdaFunction.addToRolePolicy(new cdk.PolicyStatement()
-            .addResource('arn:aws:ssm:::development/lambda-cloudwatch-triggered/')
-            .addActions('ssm:GetParameter','ssm:GetParameters','ssm:GetParametersByPath')
-        );
+        rule.addTarget(new targets.LambdaFunction(lambdaFunction));
     }
 }
 
-const app = new cdk.App(process.argv);
+const app = new cdk.App();
 
 new CdkHelloStack(app, 'CdkHelloStack');
-
-process.stdout.write(app.run());
+app.synth();

@@ -1,0 +1,23 @@
+{
+  "name": "@examples/typescript-aws",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MPL-2.0",
+  "scripts": {
+    "get": "cdktf get",
+    "build": "yarn get && tsc",
+    "compile": "tsc --pretty",
+    "synth": "cdktf synth",
+    "plan": "cd ./cdktf.out && terraform init && terraform plan",
+    "apply": "terraform apply ./cdktf.out"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.26",
+    "typescript": "^3.9.7",
+    "cdktf-cli": "0.0.0"
+  },
+  "dependencies": {
+    "constructs": "^3.0.0",
+    "cdktf": "0.0.0"
+  }
+}
