@@ -48,11 +48,11 @@ data "aws_iam_policy_document" "lambda_ssm_cloudwatch" {
 resource "aws_iam_policy" "allow_ssm_cloudwatch" {
   name   = "${var.environment}-${var.module-name}"
   path   = "/"
-  policy = "${data.aws_iam_policy_document.lambda_ssm_cloudwatch.json}"
+  policy = data.aws_iam_policy_document.lambda_ssm_cloudwatch.json
 }
 
 resource "aws_iam_policy_attachment" "attach_allow_ssm_cloudwatch" {
   name       = "${var.environment}-${var.module-name}"
-  roles      = ["${aws_iam_role.iam_for_lambda.name}"]
-  policy_arn = "${aws_iam_policy.allow_ssm_cloudwatch.arn}"
+  roles      = [aws_iam_role.iam_for_lambda.name]
+  policy_arn = aws_iam_policy.allow_ssm_cloudwatch.arn
 }

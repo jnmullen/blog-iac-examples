@@ -15,16 +15,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aws-cdk/aws-events": "^0.8.2",
-    "@aws-cdk/aws-s3": "^0.8.2",
-    "@aws-cdk/aws-sns": "^0.8.2",
-    "@aws-cdk/aws-sqs": "^0.8.2",
-    "@aws-cdk/aws-ssm": "^0.8.2",
-    "@aws-cdk/cdk": "^0.8.2"
+    "@aws-cdk/aws-dynamodb": "^1.75.0",
+    "@aws-cdk/aws-events": "^1.75.0",
+    "@aws-cdk/aws-events-targets": "^1.75.0",
+    "@aws-cdk/aws-lambda": "^1.75.0",
+    "@aws-cdk/aws-s3": "^1.75.0",
+    "@aws-cdk/aws-ssm": "^1.75.0",
+    "@aws-cdk/cdk": "^0.35.0"
   },
   "devDependencies": {
-    "@types/node": "^10.7.0",
-    "aws-cdk": "^0.8.2",
-    "typescript": "^3.0.1"
+    "@types/node": "^14.14.10",
+    "aws-cdk": "^1.75.0",
+    "typescript": "^4.1.2"
   }
 }
