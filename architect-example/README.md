@@ -20,35 +20,26 @@ npm i -g @architect/architect
 
 Get cdktf dependencies
 ```
-mkdir architect-example &&  cd architect-example && arc init architect-example
+mkdir architect-example && cd architect-example && arc init architect-example
 ```
 
-Cross compile the Typescript code to Javascript:
+Start the local dev server
 ```
-npm run-script compile
-```
-
-To print out the Cloudformation which will be created run:
-```
-npm run-script synth (runs cdktf synth)
+arc sandbox
 ```
 
-To run a plan to see what changes will be made:
+Deploy to the staging environment
 ```
-cd ./cdktf.out && terraform init && terraform plan
-```
-
-To apply the changes from the above plan:
-```
-terraform apply ./cdktf.out
+arc deploy
 ```
 
-IF you were to make changes you can see what changes need to be applied with:
+Deploy to the production environment
 ```
-cdktf diff
+arc deploy production
 ```
+
 
 Once you have finished you can destroy the infrastructure with : 
 ```
-cdktf destroy
+arc destroy
 ```

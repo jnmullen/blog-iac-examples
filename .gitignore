@@ -1,4 +1,12 @@
 .terraform
 *.tfstate
 *.tfstate.backup
+node_modules/
+cdk.out/
+cdktf.out/
 .idea
+.gen/
+cdk-example/bin/*.js
+cdk-example/bin/*.d.ts
+cdk-tf-example/bin/*.js
+cdk-tf-example/bin/*.d.ts

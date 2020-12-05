@@ -3,9 +3,6 @@ import { Construct } from 'constructs';
 import { App, TerraformStack } from 'cdktf';
 import { AwsProvider, CloudwatchEventRule, CloudwatchEventTarget, DataAwsS3Bucket, IamPolicy, IamRole, IamRolePolicyAttachment, LambdaFunction } from '../.gen/providers/aws'
 
-
-//import { ServicePrincipal } from '../node_modules/@aws-cdk/cdk';
-
 class CdkTfHelloStack extends TerraformStack {
     constructor(scope: Construct, id: string) {
         super(scope, id);

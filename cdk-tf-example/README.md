@@ -28,24 +28,25 @@ Cross compile the Typescript code to Javascript:
 npm run-script compile
 ```
 
-To print out the Cloudformation which will be created run:
+To generate the required Terraform HCL 
 ```
-npm run-script synth (runs cdktf synth)
+npm run-script synth
+OR
+cdktf synth
 ```
 
 To run a plan to see what changes will be made:
 ```
+npm run-script plan
+OR
 cd ./cdktf.out && terraform init && terraform plan
 ```
 
 To apply the changes from the above plan:
 ```
+npm run-script apply
+OR
 terraform apply ./cdktf.out
-```
-
-IF you were to make changes you can see what changes need to be applied with:
-```
-cdktf diff
 ```
 
 Once you have finished you can destroy the infrastructure with : 

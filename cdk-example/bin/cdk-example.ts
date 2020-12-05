@@ -3,11 +3,9 @@ import s3 = require('@aws-cdk/aws-s3');
 import events = require('@aws-cdk/aws-events');
 import targets = require('@aws-cdk/aws-events-targets');
 import lambda = require('@aws-cdk/aws-lambda');
-import { PolicyStatement } from "@aws-cdk/aws-iam"
+import iam = require('@aws-cdk/aws-iam');
 import cdk = require('@aws-cdk/core');
 
-
-//import { ServicePrincipal } from '../node_modules/@aws-cdk/cdk';
 
 class CdkHelloStack extends cdk.Stack {
     constructor(parent: cdk.App, id: string) {
@@ -15,7 +13,7 @@ class CdkHelloStack extends cdk.Stack {
 
         const bucket = s3.Bucket.fromBucketName(this, 'BucketByName', 'jamesnmullen');
 
-        const lambdaPolicy = new PolicyStatement()
+        const lambdaPolicy = new iam.PolicyStatement()
         lambdaPolicy.addActions("ssm:GetParameter", "ssm:GetParameters", "ssm:GetParametersByPath")
         lambdaPolicy.addResources('arn:aws:ssm:::development/lambda-cloudwatch-triggered/');
 
